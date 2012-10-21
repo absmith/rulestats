@@ -9,6 +9,9 @@ class Firewall(models.Model):
     password = EncryptedCharField(max_length=1024)
     enable_password = EncryptedCharField(max_length=1024)
 
+    def __unicode__(self):
+        return "%s (%s)" % (self.name, self.ip)
+
 class Rule(models.Model):
     firewall = models.ForeignKey(Firewall, related_name='rules')
     access_list = models.CharField(max_length=256)

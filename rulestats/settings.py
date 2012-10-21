@@ -136,6 +136,8 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'south',
+    'django_fields',
+    'django_nose',
     'rulestats.core',
 )
 
@@ -168,6 +170,7 @@ LOGGING = {
     }
 }
 
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # Then load those sensitive settings from a local file with tight
 # filesystem permissions.

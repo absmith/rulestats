@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h3>Firewalls</h3>
+    
+    <table>
+    <tr>
+        <th>Name </th>
+        <th> IP </th>
+    </tr>
+    {% for firewall in firewalls %}
+        <tr>
+            <td><a href="{{ firewall.id }}">{{ firewall.name }}</a></td>
+            <td>{{ firewall.ip }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    
+{% endblock %}
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>{% block title %}{% if title  %} {{ title }} {% else %} Rulestats {% endif %}{% endblock %}</title>
+{% block extrastyle %}{% endblock %}
+
+
+<style title="custome-theme" type="text/css">
+    @import "/static/css/custom-theme/jquery-ui-1.9.0.custom.css";
+
+</style>
+
+<script type="text/javascript" src="/static/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui-1.9.0.custom.min.js"></script>
+<!-- <script type="text/javascript" src="/media/firewall/js/jquery.getUrlParam.js"></script> -->
+{% block extrahead %}{% endblock %}
+</head>
+<body>
+
+<!-- Container -->
+<div id="outer">
+    <!-- Header -->
+    <div id="header">
+		<h1><a href="/firewall"></a></h1>
+	</div>
+    <div id="menu"></div>
+	{% if user.is_authenticated %}
+		<div id="user-tools">Welcome, <strong>{% firstof user.first_name user.username %}</strong>.
+		{% block userlinks %}<a href="/password_change/">Change password</a> / <a href="/logout/">Log out</a> /
+        {% if user.is_authenticated and user.is_staff %} <a href="{% url admin:index %}">Administration</a>{% endif %}
+        {% endblock %}
+		</div>
+	{% endif %}
+	{% block nav-global %}{% endblock %}
+    <!-- END Header -->
+	
+	{% block breadcrumbs %}
+	{% endblock %}
+
+    {% if messages %}
+    <ul class="messagelist">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
+    {% endif %}
+        
+    <!-- Content -->
+    <div id="content" class="{% block coltype %}colM{% endblock %}">
+		<div id="primaryContentContainer">
+			<div id="primaryContent">
+			
+				{% block pretitle %}{% endblock %}
+				
+				{% block content %}
+				{% block object-tools %}{% endblock %}
+				{{ content }}
+				{% endblock %}
+			</div>
+		</div>
+		<div id="secondaryContent">
+		    {% block sidebar %}{% endblock %}
+		</div>
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+
+    {% block footer %}
+		<div id="footer">
+			&copy;2012          
+		</div>
+	{% endblock %}
+</div>
+<!-- END Container -->
+</body>
+</html>

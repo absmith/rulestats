@@ -1,5 +1,7 @@
+
 from django.db import models
 from django_fields.fields import EncryptedCharField
+from django.utils.timezone import now
 
 # Create your models here.
 class Firewall(models.Model):
@@ -39,7 +41,7 @@ class Rule(models.Model):
                 save = True
             elif self.details != old_self.details:
                 save = True
-            elif int(self.hit_count) != old_self.hit_count:
+            elif int(self.current_hit_count) != int(old_self.current_hit_count):
                 save = True
             elif self.hash != old_self.hash:
                 save = True
@@ -49,4 +51,8 @@ class Rule(models.Model):
             save = True
 
         if save:
+            if int(self.current_hit_count) > int(self.max_hit_count):
+                self.max_hit_count = self.current_hit_count
+                self.max_hit_count_timestamp = now()
+
             super(Rule, self).save(*args, **kwargs)

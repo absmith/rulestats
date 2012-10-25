@@ -10,8 +10,9 @@ from rulestats.core.models import *
 
 #@login_required
 def home(request, template='core/index.html'):
-    data = {}   
-    
+    data = {}
+
     data['firewalls'] = Firewall.objects.all()
-    return render_to_response(template, data, 
+    return render_to_response(template, data,
                               context_instance=RequestContext(request))
+

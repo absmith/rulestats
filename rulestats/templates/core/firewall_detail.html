@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<table>
+    <tbody>
+        {% for rule in firewall.rules.all %}
+            <tr>
+                <td>{{ rule.access_list }}</td>
+                <td>{{ rule.type }}</td>
+                <td>{{ rule.protocol }}</td>
+                <td style="text-align: left;">{{ rule.details }}</td>
+                <td>{{ rule.current_hit_count }}</td>
+                <td>{{ rule.max_hit_count }}</td>
+                <td>{{ rule.hash }}</td>
+                <td>{{ rule.last_modified }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

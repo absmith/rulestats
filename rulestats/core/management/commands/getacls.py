@@ -10,6 +10,7 @@ from optparse import make_option
 
 from django.core.management.base import BaseCommand, CommandError
 from django.utils.timezone import now
+
 from rulestats.core.models import *
 
 class Command(BaseCommand):
@@ -36,7 +37,7 @@ class Command(BaseCommand):
         live_rules = []
         
         for line in access_list:
-            # create our own hash just in cause the asa ends up with a duplicate hash
+            # create our own hash just in case the asa ends up with a duplicate hash
             # had it happen in the past
             hash1 = hashlib.sha256(line.split('(')[0]).hexdigest()
             match = reobj.search(line)
